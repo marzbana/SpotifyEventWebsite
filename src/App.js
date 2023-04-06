@@ -1,25 +1,61 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import SearchPage from '/Users/alexmarz/Desktop/411/project/src/pages/Search.js';
+import Login from '/Users/alexmarz/Desktop/411/project/src/pages/Login.js';
+import Artists from '/Users/alexmarz/Desktop/411/project/src/pages/Artists.js';
+import Spotify from '/Users/alexmarz/Desktop/411/project/src/pages/Spotify.js';
+const { BrowserRouter, Routes, Route } = require('react-router-dom');
 
 function App() {
+  // Set up the OAuth credentials
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Login/>} />
+        <Route path="/search" element={<SearchPage/>} />
+        <Route path="/artists" element={<Artists/>} />
+        <Route path="/spotify" element={<Spotify/>} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+
+
+/*
+
+import React from 'react';
+import Button from 'react-bootstrap/Button';
+
+function App() {
+
+  const handleLoginClick = async () => { 
+    try {
+      const response = await fetch('http://localhost:8001/login', {
+        method: 'GET',
+        credentials: 'include',
+
+      });
+      const responseData = await response.json();
+      window.location.href = responseData.redirectUrl;
+    } catch(error) {
+      console.error(error);
+    }
+    
+  };
+  
+
+  return (
+    <div className="container">
+      <h1>Welcome to my App</h1>
+      <p>Click the button below to login with Spotify:</p>
+      <Button variant="primary" onClick={handleLoginClick}>
+        Login with Spotify
+      </Button>
     </div>
   );
 }
 
 export default App;
+*/
