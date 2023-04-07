@@ -2,7 +2,7 @@ const {MongoClient} = require('mongodb'); //Database
 
 async function main() {
     //Connection URL info
-      const uri = 'mongodb+srv://Jkwan:21323002448232@cluster0.dqni373.mongodb.net/test';
+    const uri = 'mongodb+srv://Jkwan:21323002448232@cluster0.dqni373.mongodb.net/test';
     const client = new MongoClient(uri);
     try {
       await client.connect();
@@ -23,10 +23,10 @@ async function listDatabases(client){
     databasesList.databases.forEach(db => console.log(` - ${db.name}`));
   };
   
-
-
     
   module.exports = {
     listDatabases,
     main
   };
+
+
