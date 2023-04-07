@@ -1,0 +1,5 @@
+As a logged in user (UserStory1) I want to be able to delete my account
+
+
+Description:
+Once a user is logged in they should be able to navigate to a page where they will have an option to delete their account. Doing this will disable all future notifications about artists they follow on the site currently and will delete information relevant to the user from our database so that they no longer have an account. Once the users account is deleted they will no longer be able to log into that account. They can however create a new account with the same Spotify account (UserStory1). If there were any artists followed on the site previously they will not be remembered and will need to be added again. This also applies to any additional personal information the user provided upon account creation.

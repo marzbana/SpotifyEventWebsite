@@ -1,0 +1,18 @@
+User Story 3
+
+
+
+
+As a logged-in user (User Story 1)  I want to be able to view my liked artist and locations that I saved.
+
+
+
+
+Description: 
+
+
+Once a user is logged in they should have the ability to view This will allow the user to have an easier view of what artists they are interested in, rather than needing to search for each artist individually.
+
+
+Also, the user will view the locations they had added in order to know when and which tickets will be available to purchase for any of their liked artists close to the given location. 
+This will also make it easier for the user to be able to easily know when their favorite artist is having a concert either in or near the locations listed.

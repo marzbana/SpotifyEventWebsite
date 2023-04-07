@@ -1,0 +1,8 @@
+User story: As a logged in user I should be able to change information such as liked artists, favorite locations, and email preferences. 
+
+Description: 
+After a user is logged in (see user story 1) they have the ability to change what artists they like. They can delete previously liked artists or choose to like new artists. However, a user can only remove artists they liked in our application and not from Spotify. 
+ 
+A user should also be able to add their favorite locations and a maximum distance from each location. They also have the ability to delete saved locations or change the maximum distance from already saved locations. 
+
+A user should also be able to change artists they sign up to receive email preferences from. They can choose to receive email notifications from artists they have not previously received notifications from. A user can also chose to not receive notifications from an artist they have previously set to receive notifications from. A user can also change what locations they receive notifications for as well. They can either select more locations or remove locations.  

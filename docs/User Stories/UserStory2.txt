@@ -1,0 +1,10 @@
+User story: A user who is not logged in should be able to find concerts for an artist of their choice, whether they specify a location or not.
+
+Description: 
+A user who is not logged in can search for an artist's upcoming concerts. They can choose to not specify a location and all of the artist's upcoming concerts will be displayed in a sequential order with concerts happening earlier displayed before concerts happening on a later date. 
+
+If a user decides to include a location and a maximum distance from the location we will limit the results to the concerts that are within the location and display them in the same sequential order as before.
+
+We will include the prices of concerts from various vendors in the concert details. 
+
+A message will be displayed to the user indicating that the artist has no upcoming concerts in the event that a user has no upcoming concerts. 

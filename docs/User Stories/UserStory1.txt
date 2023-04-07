@@ -1,0 +1,7 @@
+
+As a user I want to be able to log in to my account so the website has access to my Spotify information.
+
+
+
+Description:
+This will be accomplished by the user logging into the website by using their Spotify account. At the moment we plan on users only being able to make an account on the site by using Oauth with Spotify. This means that a user needs to have a Spotify account or they can't become a registered user on our website.If everything goes right they will be able to either login to the account on our website by logging in with their Spotify or they will become new users on the site if they are logging in with Spotify for the first time. If they are logging in for the first time then Spotify will ask the user for permissions for the website to get access to data on their Spotify account. If the user gives the website access to permissions then we will have access to their followed and most popular artists and will be able to give accurate information on upcoming concerts for those artists to the users. If the user does not give permission then we will create an account for them but if they want information on upcoming concerts for any artists they will need to add them to the follow list on the website for their account.

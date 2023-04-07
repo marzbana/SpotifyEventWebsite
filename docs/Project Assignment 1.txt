@@ -1,0 +1,36 @@
+GitHub: https://github.com/Jkwan01/411-Project
+
+
+First Idea: Marketplace Item Price Tracker
+
+We plan on making a web app that will display the prices of in-game items using the api provided by the game developers. The website will show the real time prices of the item along with other statistics like the volume traded of that item for the day, its price history, the most recent buy/sell price, among other statistics. We may include graphs to show price trends of the item and maybe a comparison graph to compare to other items. We may also use the Twitter api to show the latest tweets from the game developer. OAuth can be used to track the favorite items of the users. We plan on using the databases to hold the prices of the items along with other information.
+
+
+
+Second idea: 
+
+We plan on making a web app that uses spotify following/liked songs and finds the cheapest concert tickets for each artist in your area. We may also include features like notifying you when an artist is holding a concert in your area or when the price of a ticket for an artist you like meets your budget. We can use a database to store artists, locations, price ranges, and liked seats for a user. We can use Spotify for oauth and for user data. We can use ticket vendor apis such as ones from ticketmaster and stubhub to find available tickets and their prices. 
+
+
+
+Potential Ideas:
+Listing prices and distance of different travel options to travel destinations
+
+Marketplace tracking for game items
+
+Prop E-commerce site 
+
+Weather forecasting site
+
+PDF -> Text parser and have AI/Bot read the text to you
+
+Prompting user for search info then displaying Quora, Reddit, chatgpt results, can use speech recognition as well 
+ 
+Mini Social Media Site
+
+Given list of items, search through different stores to find which have the cheapest options
+
+Translator 
+
+
+
