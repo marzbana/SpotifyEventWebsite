@@ -1,6 +1,6 @@
 const express = require('express');
 require = require('esm')(module /*, options */)
-const { loginWithSpotify, getLikedArtists } = require('SpotifyAPI.js');
+const { loginWithSpotify, getLikedArtists } = require('./SpotifyAPI.js');
 const cors = require('cors');
 const app = express();
 app.use(cors());

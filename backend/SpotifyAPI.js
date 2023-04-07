@@ -3,7 +3,7 @@ async function loginWithSpotify(code) {
     // Set up the OAuth credentials
     const clientId = '0a572a2bcee3498cafdd358cd91b3236';
     //i removed the secret cause prof said not to post it on github
-    const clientSecret = null;
+    const clientSecret = 'be6f80ecdc464aeaa5273c7c5cb0e19f';
     const redirectUri = 'http://localhost:3000/spotify';
 
     // Exchange the authorization code for an access token
@@ -26,6 +26,7 @@ async function loginWithSpotify(code) {
       });
 
       const tokenData = await response.json();
+      console.log(tokenData.access_token)
       const accessToken = tokenData.access_token;
       const refreshToken = tokenData.refresh_token;
       console.log("b",accessToken);

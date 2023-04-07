@@ -1,8 +1,8 @@
 import React from 'react';
-import SearchPage from 'pages/Search.js';
-import Login from 'pages/Login.js';
-import Artists from 'pages/Artists.js';
-import Spotify from 'pages/Spotify.js';
+import SearchPage from './pages/Search.js';
+import Login from './pages/Login.js';
+import Artists from './pages/Artists.js';
+import Spotify from './pages/Spotify.js';
 const { BrowserRouter, Routes, Route } = require('react-router-dom');
 
 function App() {
