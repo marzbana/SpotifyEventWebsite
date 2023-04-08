@@ -1,0 +1,9 @@
+Our team has chosen to use the MERN stack for the development of our website. 
+We have chosen this stack primarily because of its ease of use and scalability. 
+We believe it’s perfect to use for our simple website that displays a user’s followed artists from Spotify, and displays data about their upcoming concerts in a user’s area.
+The MERN stack is also known for its simplicity and flexibility, which makes it an ideal choice to delve into building a website.
+In addition, the MERN stack is well-supported by a large and active community of developers, which means that we’ll have plenty of resources available for learning and troubleshooting issues. 
+This makes it a good choice for us to learn new skills and expand our knowledge of web development.
+Overall, we believe that the MERN stack is the best choice for our team and for the development of our website. 
+We are excited to learn more about these technologies as we continue to work on our project, and we look forward to building a great website.
+
