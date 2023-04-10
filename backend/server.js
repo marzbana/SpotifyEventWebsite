@@ -1,6 +1,6 @@
 const express = require('express');
-require = require('esm')(module /*, options */)
-const { loginWithSpotify, getLikedArtists } = require('./SpotifyAPI.js');
+const { loginWithSpotify, getLikedArtists, getUserId, refreshAccessToken } = require('./SpotifyAPI.js');
+const encrypt = require('./cookie.js');
 const cors = require('cors');
 const app = express();
 app.use(cors());
@@ -14,13 +14,36 @@ let code = null;
 app.get('/', (req, res) => {
   res.send('Welcome to my app!');
 });
-
+//server returns the state and code to the client
+//need to get an access token and refresh token and store in db
+//also need to use it to get a user id and create a cookie for the user
 app.post('/login', (req, res) => {
   code = req.body.code;
   const state_from_req = req.body.state;
-  // Do something with the code here, like store it in a database or use it to get an access token
+  //check if the state matches the one sent to the client
+  //we need to retrieve it from the db first
   if(state === state_from_req){
     console.log("state matches");
+    //now get the token and check if user exists in db
+   loginWithSpotify(code).then((token) => {
+    //get the users id
+    getUserId(token[0]).then((id) => {
+      //create encrypted id
+      const encrypted_id = encrypt(id);
+      //check if user exists in db
+      if(false){
+        //store the users token in db
+      }
+      //if not create a new user using encrypted id
+      else{
+        //create a new user in db
+        //store encrypted id and token in db
+      }
+        //create a cookie for the user
+        res.cookie('user_id', encrypted_id, { maxAge: 3600, httpOnly: true });
+    });
+   });
+  
     res.status(200).send('Login successful');
     
   }
@@ -29,8 +52,10 @@ app.post('/login', (req, res) => {
     res.status(403).send('Login failed');
   }
 });
-
+//frontend gets a state from the server 
 app.get('/state', (req, res) => {
+  //generate state
+  //store state in db
   const response = { state: state };
   console.log("state");
   res.send(response);
@@ -41,9 +66,9 @@ app.get('/state', (req, res) => {
 
 // Return the user's top liked artists
 app.get('/liked-artists', async (req, res) => {
-
-
-    token = await loginWithSpotify(code);
+  //get the user's token from the db
+  //check if the access token works
+  //if it does not work use the refresh token to get a new access token
     if(token !== [null, null]) 
 {
   try {
@@ -57,6 +82,16 @@ app.get('/liked-artists', async (req, res) => {
   else{
     res.status(403).send('Login failed');
   }
+});
+
+//delete the user's session when the front end calls this
+//user logs off from front end
+app.delete('/logout', (req, res) => {
+  //delete the user's tokens from the db
+  //delete the user's cookie from the db
+  //delete the user's cookie
+  res.clearCookie('user_id');
+  res.status(200).send('Logout successful');
 });
 
 // Start the server
