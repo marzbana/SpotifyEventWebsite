@@ -1,6 +1,9 @@
 const express = require('express');
 const { loginWithSpotify, getLikedArtists, getUserId, refreshAccessToken } = require('./SpotifyAPI.js');
 const encrypt = require('./cookie.js');
+const express = require('express'); //Backend Framework
+const {listDatabases,main} = require('./mongoDB.js');
+
 const cors = require('cors');
 const app = express();
 app.use(cors());
@@ -10,6 +13,13 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 let token = [null, null];
 let code = null;
+
+
+
+
+main().catch(console.error); //Call our main function to test the DB.
+
+
 // Serve the homepage
 app.get('/', (req, res) => {
   res.send('Welcome to my app!');
