@@ -1,16 +1,21 @@
-import React, { useState, useEffect } from 'react';
-
+import { Navigate } from 'react-router-dom';
 function Artists() {
-  const [likedArtists, setLikedArtists] = useState([]);
-
-  useEffect(() => {
+  const location = window.location;
+  const params = new URLSearchParams(location.search);
+  const loggedIn = params.get('loggedIn');
+  if(loggedIn==='true') {
+  
+  let likedArtists = [];
+  try{
     fetch('http://localhost:8000/liked-artists')
       .then(response => response.json())
       .then(data => {
-        setLikedArtists(data);
+         likedArtists  = data;
       })
-      .catch(error => console.error(error));
-  }, []);
+    }
+      catch(error)
+      {console.error(error);}
+ 
 
   return (
     <div className="container">
@@ -26,6 +31,11 @@ function Artists() {
       )}
     </div>
   );
+          }
+          else{
+            Navigate('/?loggedIn=false');
 }
+}
+
 
 export default Artists;

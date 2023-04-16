@@ -3,21 +3,30 @@ import SearchPage from './pages/Search.js';
 import Login from './pages/Login.js';
 import Artists from './pages/Artists.js';
 import Spotify from './pages/Spotify.js';
+import Home from './pages/Home.js';
+import LogOut from './pages/Logout.js';
 const { BrowserRouter, Routes, Route } = require('react-router-dom');
 
 function App() {
-  // Set up the OAuth credentials
-
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Login/>} />
+        <Route path='/:loggedIn' element={<Home/>} />
+        <Route path="/login/:loggedIn" element={<Login/>} />
+        <Route path="/search/:loggedIn" element={<SearchPage/>} />
+        <Route path="/artists/:loggedIn" element={<Artists/>} />
+        <Route path="/spotify/:loggedIn" element={<Spotify/>} />
+        <Route path="/logout/:loggedIn" element={<LogOut/>} />
+        <Route path='/' element={<Home/>} />
+        <Route path="/login" element={<Login/>} />
         <Route path="/search" element={<SearchPage/>} />
         <Route path="/artists" element={<Artists/>} />
         <Route path="/spotify" element={<Spotify/>} />
+        <Route path="/logout" element={<LogOut/>} />
       </Routes>
     </BrowserRouter>
   );
+
 }
 
 export default App;
@@ -59,3 +68,5 @@ function App() {
 
 export default App;
 */
+
+

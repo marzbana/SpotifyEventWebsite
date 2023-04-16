@@ -1,4 +1,3 @@
-// const express = require('express');
 const { loginWithSpotify, getLikedArtists, getUserId, refreshAccessToken } = require('./SpotifyAPI.js');
 const encrypt = require('./cookie.js');
 const express = require('express'); //Backend Framework
@@ -7,17 +6,21 @@ const {listDatabases,main} = require('./mongoDB.js');
 const cors = require('cors');
 const app = express();
 app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}));
 const port = 8000;
 const state = Math.random().toString(36).substring(2, 15);
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
-let token = [null, null];
+let access = null;
 let code = null;
 
 
 
 
-main().catch(console.error); //Call our main function to test the DB.
+//main().catch(console.error); //Call our main function to test the DB.
 
 
 // Serve the homepage
@@ -36,6 +39,7 @@ app.post('/login', (req, res) => {
     console.log("state matches");
     //now get the token and check if user exists in db
    loginWithSpotify(code).then((token) => {
+    access=token;
     //get the users id
     getUserId(token[0]).then((id) => {
       //create encrypted id
@@ -51,10 +55,11 @@ app.post('/login', (req, res) => {
       }
         //create a cookie for the user
         res.cookie('user_id', encrypted_id, { maxAge: 3600, httpOnly: true });
+        res.status(200).send('Login successful');
     });
    });
   
-    res.status(200).send('Login successful');
+    
     
   }
   else{
@@ -79,11 +84,11 @@ app.get('/liked-artists', async (req, res) => {
   //get the user's token from the db
   //check if the access token works
   //if it does not work use the refresh token to get a new access token
-    if(token !== [null, null]) 
+    if(access !== null) 
 {
   try {
-    console.log("a",token[0]);
-    const data = await getLikedArtists(token[0]);
+    console.log("a",access);
+    const data = await getLikedArtists(access);
     res.status(200).json(data);
   } catch (error) {
     console.error(error);
@@ -96,12 +101,13 @@ app.get('/liked-artists', async (req, res) => {
 
 //delete the user's session when the front end calls this
 //user logs off from front end
-app.delete('/logout', (req, res) => {
+app.post('/logout', (req, res) => {
   //delete the user's tokens from the db
   //delete the user's cookie from the db
   //delete the user's cookie
   res.clearCookie('user_id');
   res.status(200).send('Logout successful');
+  console.log("logout");
 });
 
 // Start the server

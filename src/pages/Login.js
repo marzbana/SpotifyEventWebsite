@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
-
+import {Navigate} from 'react-router-dom';
 function loginWithSpotify(x) {
     // Set up the OAuth credentials
     const clientId = '0a572a2bcee3498cafdd358cd91b3236';
@@ -34,15 +34,23 @@ function loginWithSpotify(x) {
   
 
 const Login = () => {
+  const location = window.location;
+  const params = new URLSearchParams(location.search);
+  const loggedIn = params.get('loggedIn');
+  if(loggedIn=== 'false' || loggedIn===null){
   return (
     <div className="container">
-      <h1>Welcome to my App</h1>
       <p>Click the button below to login with Spotify:</p>
       <Button variant="primary" onClick={handleLoginClick}>
         Login with Spotify
       </Button>
     </div>
   );
+  }
+  else{
+    Navigate('/?loggedIn=true');
+  }
 };
+
 
 export default Login;
