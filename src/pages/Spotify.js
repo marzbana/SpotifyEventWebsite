@@ -20,14 +20,14 @@ const Spotify = () => {
     })
     .then(response => {
       if (response.ok) {
-        navigate('/search');
+        navigate('/?loggedIn=true');
       } else {
-        navigate('/login');
+        navigate('/login?loggedIn=false');
       }
     })
     .catch(error => {
       console.error(error);
-      navigate('/login');
+      navigate('/login?loggedIn=false');
     });
   }, [navigate]);
 
