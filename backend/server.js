@@ -1,25 +1,33 @@
+//FUNCTIONS
 const { loginWithSpotify, getLikedArtists, getUserId, refreshAccessToken } = require('./SpotifyAPI.js');
 const encrypt = require('./cookie.js');
+//IMPORTS
 const express = require('express'); //Backend Framework
-const {listDatabases,main} = require('./mongoDB.js');
-
-const cors = require('cors');
+const cors = require('cors'); //Cross Origin Resource Sharing
+const bodyParser = require('body-parser'); //Body Parser
+const {MongoDB} = require('./mongoDB.js'); //MongoDB
+//OBJCTS
+const mongo = new MongoDB();
+//SETTING UP THE APP
 const app = express();
+//CORS
 app.use(cors());
 app.use(cors({
   origin: 'http://localhost:3000',
   credentials: true
 }));
+//PORT
 const port = 8000;
-const state = Math.random().toString(36).substring(2, 15);
-const bodyParser = require('body-parser');
+//BODY PARSER MIDDLEWARE
 app.use(bodyParser.json());
+
+
+//TEMNPORARY
 let access = null;
 let code = null;
+const state = Math.random().toString(36).substring(2, 15);
 
-
-
-
+//RUNNING SERVER CODE
 //main().catch(console.error); //Call our main function to test the DB.
 
 
@@ -31,9 +39,10 @@ app.get('/', (req, res) => {
 //need to get an access token and refresh token and store in db
 //also need to use it to get a user id and create a cookie for the user
 app.post('/login', (req, res) => {
-  code = req.body.code;
+  const code = req.body.code;
   const state_from_req = req.body.state;
   //check if the state matches the one sent to the client
+  const state = mongo.databaseQuery("state", );
   //we need to retrieve it from the db first
   if(state === state_from_req){
     console.log("state matches");

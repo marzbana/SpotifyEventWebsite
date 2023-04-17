@@ -1,15 +1,20 @@
 const {MongoClient} = require('mongodb'); //Database
-
-async function main() {
+//mongoDB_API is a string that contains the uri in an .env file
+const {mongoDB_API} = require('./config.js');
+class MongoDB {
+  constructor() {
+    this.client = new MongoClient(mongoDB_API);
+  }
+async  main() {
     //Connection URL info
-    const uri = 'mongodb+srv://Jkwan:21323002448232@cluster0.dqni373.mongodb.net/test';
-    const client = new MongoClient(uri);
+    const uri = mongoDB_API;
+    console.log(mongoDB_API);
     try {
       await client.connect();
       await listDatabases(client);
       console.log(await UserExists(client, 01));
       console.log("Passed");
-      await databaseInsertion(client, "middleName", "Arek", 01);
+      await databaseInsertion(client, "middleName", "Arek", 1);
       console.log("Second Pass");
       console.log(await databaseQuery(client, "middleName", 1));
     } catch (e) {
@@ -21,7 +26,7 @@ async function main() {
 
 
 //Sample function to list the databases in the DB cluster
-async function listDatabases(client){
+async  listDatabases(){
     databasesList = await client.db().admin().listDatabases();
   
     console.log("Databases:");
@@ -29,13 +34,10 @@ async function listDatabases(client){
   };
   
     
-  module.exports = {
-    listDatabases,
-    main
-  };
+ 
 
 
-  async function databaseInsertion(client, field, value, userID) {
+  async databaseInsertion(field, value, userID) {
     console.log("Insertion of a field and value into a Database")
     field = field;
     value = value;
@@ -46,7 +48,7 @@ async function listDatabases(client){
       });
   }
 
-  async function databaseQuery(client, field, userID) {
+  async databaseQuery(field, userID) {
     console.log("Query for data")
     field = field;
     userID = userID;
@@ -60,12 +62,15 @@ async function listDatabases(client){
     }
   }
 
-  async function UserExists(client, userID) {
+  async userExists(userID) {
     console.log('Checking if this User Exists')
     count =  await client.db("Users").collection("Users").find( {_id: userID} ).count()
     return count
   }
 
 
+
 // state, access token, refresh token, userID, likedArtists
 // String, String, String, String, String[]
+}
+module.exports = MongoDB;
