@@ -9,6 +9,7 @@ const Spotify = () => {
     const returnedState = callbackParams.get('state');
 
     fetch('http://localhost:8000/login', {
+      //set request mode to no cors
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -16,10 +17,17 @@ const Spotify = () => {
       body: JSON.stringify({
         code: code,
         state: returnedState
-      })
+      }),
+      credentials: 'include'
     })
     .then(response => {
       if (response.ok) {
+        //delete cookie
+        document.cookie = "state=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=localhost:8000/;";
+        //create cookie with response data which is res.status(200).send(encrypted_id);
+        response.text().then(data => {
+        document.cookie = "user_id=" + data + "; path=localhost:8000/;";
+        });
         navigate('/?loggedIn=true');
       } else {
         navigate('/login?loggedIn=false');
