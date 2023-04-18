@@ -5,31 +5,26 @@ const encrypt = require('./cookie.js');
 const express = require('express'); //Backend Framework
 const cors = require('cors'); //Cross Origin Resource Sharing
 const bodyParser = require('body-parser'); //Body Parser
-const {MongoDB} = require('./mongoDB.js'); //MongoDB
+const MongoDB = require('./MongoDB.js'); //MongoDB
+const cookieParser = require('cookie-parser'); //Cookie Parser
 //OBJCTS
 const mongo = new MongoDB();
 //SETTING UP THE APP
 const app = express();
 //CORS
-app.use(cors());
+//app.use(cors());
 app.use(cors({
-  origin: 'http://localhost:3000',
-  credentials: true
+origin: 'http://localhost:3000',
+credentials: true
 }));
 //PORT
 const port = 8000;
 //BODY PARSER MIDDLEWARE
 app.use(bodyParser.json());
+//COOKIE PARSER MIDDLEWARE
+app.use(cookieParser());
 
-
-//TEMNPORARY
-let access = null;
-let code = null;
-const state = Math.random().toString(36).substring(2, 15);
-
-//RUNNING SERVER CODE
-//main().catch(console.error); //Call our main function to test the DB.
-
+//SERVER CODE
 
 // Serve the homepage
 app.get('/', (req, res) => {
@@ -39,49 +34,57 @@ app.get('/', (req, res) => {
 //need to get an access token and refresh token and store in db
 //also need to use it to get a user id and create a cookie for the user
 app.post('/login', (req, res) => {
+  try{
+  //code and state sent from the front end
   const code = req.body.code;
   const state_from_req = req.body.state;
-  //check if the state matches the one sent to the client
-  const state = mongo.databaseQuery("state", );
-  //we need to retrieve it from the db first
+ //initial state
+  const state = req.cookies.state;
+  console.log("code: " + code);
+  console.log("state from req: " + state_from_req);
+  console.log("state from cookie: " + state);
+  //delete cookie
+  res.clearCookie('state');
+   //check if the state matches the one sent to the client thats stored in a cookie
   if(state === state_from_req){
     console.log("state matches");
     //now get the token and check if user exists in db
    loginWithSpotify(code).then((token) => {
-    access=token;
     //get the users id
     getUserId(token[0]).then((id) => {
       //create encrypted id
       const encrypted_id = encrypt(id);
-      //check if user exists in db
-      if(false){
-        //store the users token in db
-      }
-      //if not create a new user using encrypted id
-      else{
-        //create a new user in db
-        //store encrypted id and token in db
-      }
-        //create a cookie for the user
-        res.cookie('user_id', encrypted_id, { maxAge: 3600, httpOnly: true });
-        res.status(200).send('Login successful');
-    });
-   });
-  
-    
-    
+      //add user refresh and access token to the db
+        mongo.databaseInsertion("access_token", token[0], encrypted_id);
+        mongo.databaseInsertion("refresh_token", token[1], encrypted_id);
+        //store the time the token was created
+        mongo.databaseInsertion("token_created", Date.now(), encrypted_id);
+        //create a cookie for the user     
+        res.status(200).send(encrypted_id);
+      });
+        
+    }); 
   }
   else{
     console.log("state does not match");
     res.status(403).send('Login failed');
   }
+}
+catch(error){
+  console.log(error);
+  res.status(403).send('Login failed');
+}
 });
 //frontend gets a state from the server 
 app.get('/state', (req, res) => {
   //generate state
-  //store state in db
+  const state = Math.random().toString(36).substring(2, 15);
+  //add state as a cookie
+  res.cookie('state', state, { maxAge: 3600, httpOnly: true });
   const response = { state: state };
   console.log("state");
+  //allow cors
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
   res.send(response);
 });
 
@@ -90,21 +93,42 @@ app.get('/state', (req, res) => {
 
 // Return the user's top liked artists
 app.get('/liked-artists', async (req, res) => {
-  //get the user's token from the db
+  console.log("liked artists");
   //check if the access token works
+  console.log("user id: " + req.cookies.user_id);
+  const time_1= await mongo.databaseQuery("token_created", req.cookies.user_id);
   //if it does not work use the refresh token to get a new access token
-    if(access !== null) 
+    if(Date.now() - time_1 <= 3500000)
 {
   try {
-    console.log("a",access);
+    
+    //get access token from db
+    const access = await mongo.databaseQuery("access_token", req.cookies.user_id);
+    //get liked artits from spotify
     const data = await getLikedArtists(access);
+    //send liked artists to the front end
     res.status(200).json(data);
   } catch (error) {
     console.error(error);
     res.status(500).send('An error occurred');
   }}
   else{
-    res.status(403).send('Login failed');
+    try{
+      //get refresh token from db
+      const refresh = await mongo.databaseQuery("refresh_token", req.cookies.user_id);
+      //get new access token from spotify
+      const new_access = await refreshAccessToken(refresh);
+      //add new access token to db
+      mongo.databaseInsertion("access_token", new_access, req.cookies.user_id);
+      //get liked artits from spotify
+      const data = await getLikedArtists(new_access);
+      //send liked artists to the front end
+      res.status(200).json(data);
+    }
+    catch(error){
+      console.error(error);
+      res.status(500).send('An error occurred');
+    }
   }
 });
 
@@ -112,7 +136,9 @@ app.get('/liked-artists', async (req, res) => {
 //user logs off from front end
 app.post('/logout', (req, res) => {
   //delete the user's tokens from the db
-  //delete the user's cookie from the db
+  mongo.databaseDeletion("access_token", req.cookies.user_id);
+  //delete refresh token
+  mongo.databaseDeletion("refresh_token", req.cookies.user_id);
   //delete the user's cookie
   res.clearCookie('user_id');
   res.status(200).send('Logout successful');

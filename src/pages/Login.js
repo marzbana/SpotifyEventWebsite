@@ -22,11 +22,16 @@ function loginWithSpotify(x) {
 
   const handleLoginClick = async () => {
     try {
-      const response = await fetch('http://localhost:8000/state');
-      const data = await response.json();
-      const state = data.state;
-      const authUrl = loginWithSpotify(state);
-      window.location.href = authUrl;
+      const response = await fetch('http://localhost:8000/state', {
+        method: 'GET',
+        credentials: 'include'
+      });
+      response.json().then(data => {
+        const state = data.state;
+        const authUrl = loginWithSpotify(state);
+        window.location.href = authUrl;
+      });
+      
     } catch (error) {
       console.error(error);
     }
