@@ -1,4 +1,26 @@
-# Getting Started with Create React App
+# 411 Project
+To use the app change the config_share.js file to just config.js and add your keys
+It's located in the /src/config/ directory 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# To run the React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
