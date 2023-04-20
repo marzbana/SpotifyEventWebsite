@@ -1,6 +1,6 @@
 const {MongoClient} = require('mongodb'); //Database
 //mongoDB_API is a string that contains the uri in an .env file
-const {mongoDB_API} = require('./config.js');
+const {mongoDB_API} = require('../src/Config/config.js');
 class MongoDB {
   //client global variable
   
@@ -64,7 +64,7 @@ async  listDatabases(){
     // val = await client.db("Users").collection("Users").find({_id: userID}, {[field] : 1})
     
       const result = await client.findOne({_id: userID});
-      console.log(result[field]);
+      console.log("Database query");
       //return result of the string vale of field
       return result[field];
   }
@@ -74,6 +74,11 @@ async  listDatabases(){
     count =  await client.find( {_id: userID} ).count()
     console.log('Checking if this User Exists')
     return count
+  }
+
+  async databaseDeletion(field, userID) {
+    //call databaseInsertion with value = null
+    await this.databaseInsertion(field, null, userID);
   }
 
 
