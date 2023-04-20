@@ -1,6 +1,7 @@
+const { spotify_client, spotify_secret } = require('../Config/config.js');
 function loginWithSpotify(x) {
     // Set up the OAuth credentials
-    const clientId = '0a572a2bcee3498cafdd358cd91b3236';
+    const clientId = spotify_client;
     const redirectUri = 'http://localhost:3000/spotify';
   
     // Generate a random string for the state parameter
@@ -20,8 +21,8 @@ function loginWithSpotify(x) {
   function getLikedArtists(code) {
     return new Promise(async (resolve, reject) => {
       // Set up the OAuth credentials
-      const clientId = '0a572a2bcee3498cafdd358cd91b3236';
-      const clientSecret = 'be6f80ecdc464aeaa5273c7c5cb0e19f';
+      const clientId = spotify_client;
+      const clientSecret = spotify_secret;
       const redirectUri = 'http://localhost:8001/';
   
       // Exchange the authorization code for an access token
