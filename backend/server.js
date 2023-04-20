@@ -5,7 +5,7 @@ const encrypt = require('./cookie.js');
 const express = require('express'); //Backend Framework
 const cors = require('cors'); //Cross Origin Resource Sharing
 const bodyParser = require('body-parser'); //Body Parser
-const MongoDB = require('./MongoDB.js'); //MongoDB
+const MongoDB = require('./MongoDB.js'); //our mongoDb class
 const cookieParser = require('cookie-parser'); //Cookie Parser
 //OBJCTS
 const mongo = new MongoDB();
@@ -120,6 +120,8 @@ app.get('/liked-artists', async (req, res) => {
       const new_access = await refreshAccessToken(refresh);
       //add new access token to db
       mongo.databaseInsertion("access_token", new_access, req.cookies.user_id);
+      //store the time the token was created
+      mongo.databaseInsertion("token_created", Date.now(), req.cookies.user_id);
       //get liked artits from spotify
       const data = await getLikedArtists(new_access);
       //send liked artists to the front end
@@ -139,6 +141,8 @@ app.post('/logout', (req, res) => {
   mongo.databaseDeletion("access_token", req.cookies.user_id);
   //delete refresh token
   mongo.databaseDeletion("refresh_token", req.cookies.user_id);
+  //delete timer
+  mongo.databaseDeletion("token_created", req.cookies.user_id);
   //delete the user's cookie
   res.clearCookie('user_id');
   res.status(200).send('Logout successful');

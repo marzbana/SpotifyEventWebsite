@@ -1,9 +1,12 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import {Navigate} from 'react-router-dom';
+import { checkCookie } from './Cookie.js';
+// use spotify_client from config.js
+const {spotify_client} = require('../Config/config.js');
 function loginWithSpotify(x) {
     // Set up the OAuth credentials
-    const clientId = '0a572a2bcee3498cafdd358cd91b3236';
+    const clientId = spotify_client;
     const redirectUri = 'http://localhost:3000/spotify';
   
     // Generate a random string for the state parameter
@@ -39,10 +42,7 @@ function loginWithSpotify(x) {
   
 
 const Login = () => {
-  const location = window.location;
-  const params = new URLSearchParams(location.search);
-  const loggedIn = params.get('loggedIn');
-  if(loggedIn=== 'false' || loggedIn===null){
+  if(!checkCookie()){
   return (
     <div className="container">
       <p>Click the button below to login with Spotify:</p>

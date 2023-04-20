@@ -1,15 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
+import { checkCookie } from './Cookie.js';
 
 const Artists = () => {
-  const location = window.location;
-  const params = new URLSearchParams(location.search);
-  const loggedIn = params.get('loggedIn');
-
   const [likedArtists, setLikedArtists] = useState([]);
 
   useEffect(() => {
-    if (loggedIn === 'true') {
+    if (checkCookie()) {
       try {
         console.log('fetching liked artists');
         fetch('http://localhost:8000/liked-artists', {
@@ -30,7 +27,7 @@ const Artists = () => {
     } else {
       Navigate('/?loggedIn=false');
     }
-  }, [loggedIn]);
+  }, []);
 
   return (
     <div className="container">

@@ -1,7 +1,9 @@
+//import keys
+const {spotify_client, spotify_secret} = require('../src/Config/config.js');
 // Set up the OAuth credentials
-const clientId = '0a572a2bcee3498cafdd358cd91b3236';
+const clientId = spotify_client;
 //i removed the secret cause prof said not to post it on github
-const clientSecret = 'be6f80ecdc464aeaa5273c7c5cb0e19f';
+const clientSecret = spotify_secret;
 const redirectUri = 'http://localhost:3000/spotify';
 
 async function loginWithSpotify(code) {
@@ -55,7 +57,6 @@ async function loginWithSpotify(code) {
         
         const artistsData = await artistsResponse.json();
         const likedArtists = artistsData.artists.items;
-        console.log(artistsData);
   
         // Resolve the promise with likedArtists
         resolve(likedArtists);
@@ -83,15 +84,14 @@ async function loginWithSpotify(code) {
   }
   
   async function refreshAccessToken(refreshToken) {
-    const fetch = require('node-fetch'); // for making HTTP requests
     const refreshURL = 'https://accounts.spotify.com/api/token';
-  
+
     // Send a POST request to the refresh token endpoint to get a new access token
     const response = await fetch(refreshURL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Basic ' + Buffer.from(clientID + ':' + clientSecret).toString('base64')
+        'Authorization': 'Basic ' + Buffer.from(clientId + ':' + clientSecret).toString('base64')
       },
       body: new URLSearchParams({
         'grant_type': 'refresh_token',

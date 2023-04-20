@@ -1,10 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { checkCookie } from './Cookie.js';
 function Home() {
-  const location = window.location;
-  const params = new URLSearchParams(location.search);
-  const loggedIn = params.get('loggedIn');
-  if(loggedIn === 'false' || loggedIn === null) {
+  if(!checkCookie()) {
   return (
     <div>
       <div style={{position: 'absolute', top: 0, right: 0}}>
