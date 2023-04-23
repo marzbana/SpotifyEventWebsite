@@ -1,0 +1,22 @@
+/* styles.css */
+
+.container {
+  position: relative;
+}
+
+.home-button {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.search-section {
+  padding-top: 100px;
+}
+
+.centered-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
