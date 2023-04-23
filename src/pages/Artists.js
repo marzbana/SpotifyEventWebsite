@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { checkCookie } from './Cookie.js';
 import '../CSS/Artist.css'
+import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
 
 const Artists = () => {
   const [likedArtists, setLikedArtists] = useState([]);
@@ -32,6 +34,11 @@ const Artists = () => {
 
   return (
     <div className="container">
+      <div className="home-button">
+        <Link to="/">
+          <Button variant="primary">Home</Button>
+        </Link>
+      </div>
       <h1>My Liked Artists</h1>
       {!likedArtists || likedArtists.length === 0 ? (
         <p>No liked artists found.</p>

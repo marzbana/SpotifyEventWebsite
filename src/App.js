@@ -14,15 +14,15 @@ function App() {
         <Route path='/:loggedIn' element={<Home/>} />
         <Route path="/login/:loggedIn" element={<Login/>} />
         <Route path="/search/:loggedIn" element={<SearchPage/>} />
-        <Route path="/artists/:loggedIn" element={<Artists/>} />
-        <Route path="/spotify/:loggedIn" element={<Spotify/>} />
+        <Route path="/artists/loggedIn=true" element={<Artists/>} />
+        <Route path="/spotify/?loggedIn=true" element={<Spotify/>} />
         <Route path="/logout/:loggedIn" element={<LogOut/>} />
         <Route path='/' element={<Home/>} />
-        <Route path="/login" element={<Login/>} />
-        <Route path="/search" element={<SearchPage/>} />
-        <Route path="/artists" element={<Artists/>} />
+        <Route path="/login" element={<Home/>} />
+        <Route path="/search" element={<Home/>} />
+        <Route path="/artists" element={<Home/>} />
         <Route path="/spotify" element={<Spotify/>} />
-        <Route path="/logout" element={<LogOut/>} />
+        <Route path="/logout" element={<Home/>} />
       </Routes>
     </BrowserRouter>
   );

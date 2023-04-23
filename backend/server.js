@@ -43,8 +43,6 @@ app.post('/login', (req, res) => {
   console.log("code: " + code);
   console.log("state from req: " + state_from_req);
   console.log("state from cookie: " + state);
-  //delete cookie
-  res.clearCookie('state');
    //check if the state matches the one sent to the client thats stored in a cookie
   if(state === state_from_req){
     console.log("state matches");
@@ -79,8 +77,6 @@ catch(error){
 app.get('/state', (req, res) => {
   //generate state
   const state = Math.random().toString(36).substring(2, 15);
-  //add state as a cookie
-  res.cookie('state', state, { maxAge: 3600, httpOnly: true });
   const response = { state: state };
   console.log("state");
   //allow cors

@@ -31,6 +31,7 @@ function loginWithSpotify(x) {
       });
       response.json().then(data => {
         const state = data.state;
+        document.cookie ="state=" + state + "; path=localhost:8000/;";
         const authUrl = loginWithSpotify(state);
         window.location.href = authUrl;
       });
