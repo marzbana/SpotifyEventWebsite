@@ -27,8 +27,8 @@ const Spotify = () => {
         //create cookie with response data which is res.status(200).send(encrypted_id);
         response.text().then(data => {
         document.cookie = "user_id=" + data + "; path=localhost:8000/;";
-        });
-        navigate('/?loggedIn=true');
+        }).then(() => {
+        navigate('/?loggedIn=true')});
       } else {
         navigate('/login?loggedIn=false');
       }

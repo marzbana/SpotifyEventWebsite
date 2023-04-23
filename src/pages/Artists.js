@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { checkCookie } from './Cookie.js';
+import '../CSS/Artist.css'
 
 const Artists = () => {
   const [likedArtists, setLikedArtists] = useState([]);
