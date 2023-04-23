@@ -55,3 +55,5 @@ function getConcertDetails(eventID) {
     return response.body;
     });
 }
+
+module.exports = {getConcertDetails, getConcerts};

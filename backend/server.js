@@ -1,6 +1,7 @@
 //FUNCTIONS
 const { loginWithSpotify, getLikedArtists, getUserId, refreshAccessToken } = require('./SpotifyAPI.js');
 const encrypt = require('./cookie.js');
+const { getConcertDetails, getConcerts } = require('./ticketMasterAPI.js');
 //IMPORTS
 const express = require('express'); //Backend Framework
 const cors = require('cors'); //Cross Origin Resource Sharing
@@ -143,6 +144,29 @@ app.post('/logout', (req, res) => {
   res.clearCookie('user_id');
   res.status(200).send('Logout successful');
   console.log("logout");
+});
+
+//to get the artists data
+app.get('/concerts', (req, res) => {
+  try{
+  //get the parameter state and artist from the front end
+  const state = req.body.state;
+  const artist = req.body.artist;
+  //get the user's id from the cookie
+  getConcerts(artist, state).then( code => {
+      //get the artist data
+      getConcertDetails(code).then( data => {
+        //send the data to the front end
+        res.status(200).json(data);
+      });
+    
+   } );
+  }
+  catch(e){
+    console.log(e);
+    res.status(500).send('An error occurred');
+  }
+
 });
 
 // Start the server
