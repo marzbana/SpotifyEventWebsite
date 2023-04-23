@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { checkCookie } from './Cookie.js';
+import '../CSS/Home.css';
 function Home() {
   if(!checkCookie()) {
   return (
