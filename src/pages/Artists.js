@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
-import { checkCookie } from './Cookie.js';
-import '../CSS/Artist.css'
-import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { Navigate } from "react-router-dom";
+import { checkCookie } from "./Cookie.js";
+import "../CSS/Artist.css";
+import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
 
 const Artists = () => {
   const [likedArtists, setLikedArtists] = useState([]);
@@ -11,24 +11,24 @@ const Artists = () => {
   useEffect(() => {
     if (checkCookie()) {
       try {
-        console.log('fetching liked artists');
-        fetch('http://localhost:8000/liked-artists', {
-          method: 'GET',
-          credentials: 'include'
+        console.log("fetching liked artists");
+        fetch("http://localhost:8000/liked-artists", {
+          method: "GET",
+          credentials: "include",
         })
-          .then(response => response.json())
-          .then(data => {
+          .then((response) => response.json())
+          .then((data) => {
             setLikedArtists(data);
             console.log(data);
           })
-          .catch(error => {
+          .catch((error) => {
             console.error(error);
           });
       } catch (error) {
         console.error(error);
       }
     } else {
-      Navigate('/?loggedIn=false');
+      Navigate("/?loggedIn=false");
     }
   }, []);
 
@@ -44,8 +44,10 @@ const Artists = () => {
         <p>No liked artists found.</p>
       ) : (
         <ul>
-          {likedArtists.map(artist => (
-            <li key={artist.id}>{artist.name}</li>
+          {likedArtists.map((artist) => (
+            <li key={artist.id}>
+              <Link to={`/concerts/${artist.id}`}>{artist.name}</Link>
+            </li>
           ))}
         </ul>
       )}
