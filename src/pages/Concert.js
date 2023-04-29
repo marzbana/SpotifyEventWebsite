@@ -7,11 +7,22 @@ const Concert = () => {
 
   useEffect(() => {
     try {
+      const callbackParams = new URLSearchParams(window.location.search);
+      const location = callbackParams.get("state");
+      console.log(location);
+      const artistId = callbackParams.get("artist");
+      console.log(artistId);
       console.log(`fetching latest concert for artist ${artistId}`);
-      fetch(`http://localhost:8000/artists/${artistId}/concerts/latest`, {
-        method: "GET",
-        credentials: "include",
-      })
+      fetch(
+        `http://localhost:8000/concerts?artist=${artistId}&state=${location}`,
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
         .then((response) => response.json())
         .then((data) => {
           setLatestConcert(data);
@@ -23,7 +34,7 @@ const Concert = () => {
     } catch (error) {
       console.error(error);
     }
-  }, [artistId]);
+  }, []);
 
   if (!latestConcert) {
     return <p>Loading...</p>;
