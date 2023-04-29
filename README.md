@@ -1,7 +1,8 @@
 # 411 Project
 To use the app change the config_share.js file to just config.js and add your keys
-
 It's located in the /src/config/ directory 
+
+Our videos and doccumentation are located in the docs directory.
 
 
 
