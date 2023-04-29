@@ -8,18 +8,19 @@ const redirectUri = "http://localhost:3000/ticketMaster";
 async function getConcerts(artistName, state) {
   const url =
     "https://app.ticketmaster.com/discovery/v2/events.json?apikey=1DVZAAGM3nezlDeuJRagtmAeNLd5HLLo&keyword=" +
-    artistName +
+    encodeURIComponent(artistName) +
     "&sort=date,asc&stateCode=" +
     state;
+  console.log(url);
 
-  var options = {
-    method: "GET",
-    url: url,
-    headers: {},
-  };
-  request(options, function (error, response) {
-    if (error) throw new Error(error);
-    return response.body;
+  return new Promise((resolve, reject) => {
+    request(url, (error, response, body) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(JSON.parse(body));
+      }
+    });
   });
 }
 
