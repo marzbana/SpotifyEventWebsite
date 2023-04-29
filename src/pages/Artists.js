@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 
 const Artists = () => {
   const [likedArtists, setLikedArtists] = useState([]);
+  const [state, setState] = useState("");
 
   useEffect(() => {
     if (checkCookie()) {
@@ -32,6 +33,10 @@ const Artists = () => {
     }
   }, []);
 
+  const handleStateChange = (event) => {
+    setState(event.target.value);
+  };
+
   return (
     <div className="container">
       <div className="home-button">
@@ -40,13 +45,24 @@ const Artists = () => {
         </Link>
       </div>
       <h1>My Liked Artists</h1>
+      <div>
+        <label htmlFor="state">State:</label>
+        <input
+          type="text"
+          id="state"
+          value={state}
+          onChange={handleStateChange}
+        />
+      </div>
       {!likedArtists || likedArtists.length === 0 ? (
         <p>No liked artists found.</p>
       ) : (
         <ul>
           {likedArtists.map((artist) => (
             <li key={artist.id}>
-              <Link to={`/concerts/${artist.id}`}>{artist.name}</Link>
+              <Link to={`/concerts?artist=${artist.name}&state=${state}`}>
+                {artist.name}
+              </Link>
             </li>
           ))}
         </ul>
@@ -54,5 +70,4 @@ const Artists = () => {
     </div>
   );
 };
-
 export default Artists;
