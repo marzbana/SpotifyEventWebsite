@@ -44,9 +44,9 @@ const Artists = () => {
           <Button variant="primary">Home</Button>
         </Link>
       </div>
-      <h1>My Liked Artists</h1>
+      <h1>Click to See Concerts in Your State</h1>
       <div>
-        <label htmlFor="state">State:</label>
+        <label htmlFor="state">State Code:</label>
         <input
           type="text"
           id="state"

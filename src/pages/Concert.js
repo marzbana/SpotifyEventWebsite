@@ -1,18 +1,16 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Concert = () => {
-  const { artistId } = useParams();
-  const [latestConcert, setLatestConcert] = useState(null);
-
+  const [concerts, setConcerts] = useState([]);
+  const callbackParams = new URLSearchParams(window.location.search);
+  const location = callbackParams.get("state");
+  console.log(location);
+  const artistId = callbackParams.get("artist");
+  console.log(artistId);
   useEffect(() => {
     try {
-      const callbackParams = new URLSearchParams(window.location.search);
-      const location = callbackParams.get("state");
-      console.log(location);
-      const artistId = callbackParams.get("artist");
-      console.log(artistId);
-      console.log(`fetching latest concert for artist ${artistId}`);
+      console.log(`fetching concerts for artist ${artistId}`);
       fetch(
         `http://localhost:8000/concerts?artist=${artistId}&state=${location}`,
         {
@@ -25,7 +23,7 @@ const Concert = () => {
       )
         .then((response) => response.json())
         .then((data) => {
-          setLatestConcert(data);
+          setConcerts(data._embedded.events);
           console.log(data);
         })
         .catch((error) => {
@@ -34,19 +32,25 @@ const Concert = () => {
     } catch (error) {
       console.error(error);
     }
-  }, []);
-
-  if (!latestConcert) {
-    return <p>Loading...</p>;
-  }
-
-  const { artist, location, date } = latestConcert;
+  }, [artistId, location]);
 
   return (
     <div>
-      <h1>Latest Concert for {artist}</h1>
-      <p>{location}</p>
-      <p>{date}</p>
+      <h1>Concerts for {artistId}</h1>
+      {concerts == null || (concerts.length === 0 && <p>No concerts found</p>)}
+      {
+        <ul>
+          {concerts.map((concert) => (
+            <li key={concert.id}>
+              <p>{concert.name}</p>
+              <p>{concert.dates.start.localDate}</p>
+              <a href={concert.url} target="_blank" rel="noopener noreferrer">
+                Buy tickets
+              </a>
+            </li>
+          ))}
+        </ul>
+      }
       <div>
         <Link to={"/artists/loggedIn=true"}>
           <button>Back to Artist Page</button>

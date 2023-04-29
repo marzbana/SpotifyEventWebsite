@@ -6,16 +6,18 @@
   height: 100vh;
   background-color: #fff;
 }
+
 .home-button {
   position: absolute;
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
 }
+
 h1 {
   font-size: 36px;
   font-weight: bold;
-  color: green;
+  color: #333;
   margin-bottom: 20px;
 }
 
@@ -38,4 +40,18 @@ li:hover {
 p {
   font-size: 18px;
   color: #999;
+}
+
+label {
+  font-size: 18px;
+  color: #333;
+  margin-right: 10px;
+}
+
+input[type="text"] {
+  font-size: 18px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
 }
