@@ -1,0 +1,19 @@
+Our project uses the MERN stack. 
+Our two APIs are Spotify and TicketMaster.
+We use Spotify Oauth. 
+
+Once you enter our website you are prompted with a login button on the main page. 
+When you click login the front end asks the backend for a state which is stored in a cookie to be verrified later.
+Then, you are redirected to a spotify login page where you must enter your spotify credentials. 
+Once you login you will be redirected to a page on our front end that sends the received code and state to the backend to be verified and logged in our data base.
+The backend sends an encrypted user id of the user that is first obtained from a spotify api call. 
+Then, we store the user id in a cookie on the users browser.
+Once the user is logged in they can access a new home page that has a logout button at the top right and a search button.
+If the user wishes to log out they can press the logout button which clears their login cookie and removes their stored tokens from our data base. 
+If the user presses on search they will be sent to a page asking them if they want to see their followed artists.
+If they click yes they will be sent to a page with their top 10 followed artists from spotify. 
+They can then enter a state abbreviation and click on an artist to see upcoming concerts in their state.
+We use the TicketMaster API to retrieve the artists upcoming concerts.]
+If the artist has any scheduled concerts on an affiliated TicketMaster website they will show up.
+If the user wants to go home or back to the artists page they can click the respected buttons. 
+
