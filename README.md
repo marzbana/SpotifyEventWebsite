@@ -1,6 +1,6 @@
 # 411 Project
-To use the app create a "config.js" file in a new folder called "config" in the src directory. T
-here you can add your spotify api key and mongoDB uri.
+To use the app create a "config.js" file in a new folder called "config" in the src directory. 
+There you can add your spotify api key and mongoDB uri.
 
 Our videos and doccumentation are located in the docs directory.
 
