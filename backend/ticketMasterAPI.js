@@ -7,7 +7,7 @@ const redirectUri = "http://localhost:3000/ticketMaster";
 // Gets events of Artists in a certain state using state code
 async function getConcerts(artistName, state) {
   const url =
-    "https://app.ticketmaster.com/discovery/v2/events.json?apikey=1DVZAAGM3nezlDeuJRagtmAeNLd5HLLo&keyword=" +
+    "https://app.ticketmaster.com/discovery/v2/events.json?apikey=&keyword=" +
     encodeURIComponent(artistName) +
     "&sort=date,asc&stateCode=" +
     state;
@@ -32,7 +32,7 @@ function getConcertImages(eventID) {
     url:
       "https://app.ticketmaster.com/discovery/v2/events/" +
       eventID +
-      "?apikey=1DVZAAGM3nezlDeuJRagtmAeNLd5HLLo&locale=*",
+      "?apikey=&locale=*",
     headers: {},
   };
   request(options, function (error, response) {
@@ -48,7 +48,7 @@ async function getConcertDetails(eventID) {
   const url =
     "https://app.ticketmaster.com/discovery/v2/events/" +
     eventID +
-    "?apikey=1DVZAAGM3nezlDeuJRagtmAeNLd5HLLo&locale=*";
+    "?apikey=&locale=*";
   fetch(url, {
     method: "GET",
     headers: {},
