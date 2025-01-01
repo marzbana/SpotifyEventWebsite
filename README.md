@@ -1,94 +1,81 @@
-# 411 Project
-To use the app create a "config.js" file in a new folder called "config" in the src directory. 
-There you can add your spotify api key and mongoDB uri.
+# Spotify Concert Finder
 
-Our videos and doccumentation are located in the docs directory.
+A web application that allows users to log in with their Spotify accounts, retrieve their followed artists, and discover upcoming concerts for those artists. This application integrates the Spotify API and Ticketmaster API to provide a seamless experience for music enthusiasts.
 
+## Project Description
 
+Spotify Concert Finder connects music fans with live performances by their favorite artists. By logging in with Spotify, users can view their followed artists and find upcoming concerts in a specified location. The project leverages OAuth2 for secure user authentication, Spotify's API to fetch artist data, and Ticketmaster's API to retrieve concert details.
 
+## Tech Stack
 
+- **Frontend**: React, React Router, Bootstrap
+- **Backend**: Node.js, Express, MongoDB
+- **APIs**: Spotify API, Ticketmaster API
+- **Other Tools**: Cookie management, request-promise for API calls
 
+## Setup and Installation
 
+To run this project locally, follow these steps:
 
+### Prerequisites
+- Node.js and npm installed
+- MongoDB instance running locally or accessible remotely
+- Spotify Developer account and application set up
+- Ticketmaster API key
 
+### Instructions
+1. **Clone the repository**:
+   ```bash
+   git clone <repository-url>
+   cd <repository-folder>
+   ```
+2. **Install dependencies within the `src` folder**:
+    npm install
+3. **Create a `config.js` file in the `Config` folder.**
+4. **Add the following:**
 
+   ```javascript
+   module.exports = {
+     spotify_client: '<Your Spotify Client ID>',
+     spotify_secret: '<Your Spotify Client Secret>',
+     ticketMaster_key: '<Your Ticketmaster API Key>',
+   };
+5. **Start the backend server**:
 
+```bash
+node server.js
+```
+6. **Start the React application**:
 
+```bash
+npm start
+```
 
+7. **Navigate to `http://localhost:3000` in your browser.**
 
+## Features
 
+- **Spotify Authentication:** Secure login using Spotify OAuth2.
+- **Artist Discovery:** View your followed artists on Spotify.
+- **Concert Search:** Discover upcoming concerts for specific artists in a selected location.
+- **Responsive Design:** Accessible on desktop and mobile devices.
 
+## Demo
 
+1. **Login with Spotify**
+2. **View Followed Artists**
+3. **Find Concerts**
 
+## Challenges Faced
 
+### OAuth2 Integration
+Implementing OAuth2 with Spotify and ensuring secure token exchange was a challenging aspect of the project. I overcame this by thoroughly understanding the Spotify API documentation and testing edge cases for user authentication.
 
-# To run the React App
+### API Integration
+Combining data from Spotify and Ticketmaster required careful synchronization and error handling. I resolved this by modularizing the API calls and implementing robust error handling mechanisms.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Future Enhancements
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Add user preferences for better concert recommendations.
+- Support more APIs for a wider range of event data.
+- Enhance UI/UX for better usability.
